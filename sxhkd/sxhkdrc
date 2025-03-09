@@ -63,15 +63,11 @@ shift + super + r
 
 # browser
 ctrl + alt + f
-    firefox file:///home/$USER/.config/startpage/index.html
-
-# idea
-ctrl + alt + i
-    /home/shiro/software/idea-IC-201.7846.76/bin/idea.sh
+    flatpak run app.zen_browser.zen
 
 # code
 ctrl + alt + c
-    code
+    zeditor
 
 # spotify
 #ctrl + alt + s

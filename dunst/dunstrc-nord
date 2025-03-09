@@ -51,7 +51,7 @@
     # Draw a line of "separator_height" pixel height between two
     # notifications.
     # Set to 0 to disable.
-    separator_height = 10 
+    separator_height = 10
 
     # Padding between text and separator.
     padding = 10
@@ -163,7 +163,7 @@
     icon_position = off
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 32
+    max_icon_size = 16
 
     # Paths to default icons.
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
@@ -277,7 +277,7 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#2e3440"
     foreground = "#ffffff"
-    timeout = 3 
+    timeout = 3
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
