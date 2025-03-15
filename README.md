@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/428854bd-558e-4501-9b28-361b4d92aa3a)
+
 # bspwm dotfiles
 
 Includes picom, sxhkd, bspwm, dunst, rofi, and nitrogen
