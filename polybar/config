@@ -43,6 +43,7 @@ height = 22
 radius = 0.0
 fixed-center = true
 wm-restack = bspwm
+enable-ipc = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -75,6 +76,7 @@ cursor-click = pointer
 cursor-scroll = pointer
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/bspwm]
 type = internal/bspwm
 
@@ -101,55 +103,16 @@ label-empty-padding = 2
 
 ; Separator in between workspaces
 label-separator =
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-[module/filesystem]
-type = internal/fs
+[module/dunst]
+type = custom/ipc
+initial = 1
+format-foreground = ${colors.yellow}
 
-; Mountpoints to display
-mount-0 = /
-
-; Seconds to sleep between updates
-; Default: 30
-interval = 10
-
-; Display fixed precision values
-; Default: false
-fixed-values = true
-
-; Spacing between entries
-; Default: 2
-spacing = 4
-
-; Available tags:
-;   <label-mounted> (default)
-;   <bar-free>
-;   <bar-used>
-;   <ramp-capacity>
-format-mounted = <label-mounted>
-
-; Available tags:
-;   <label-unmounted> (default)
-format-unmounted = <label-unmounted>
-
-; Available tokens:
-;   %mountpoint%
-;   %type%
-;   %fsname%
-;   %percentage_free%
-;   %percentage_used%
-;   %total%
-;   %free%
-;   %used%
-; Default: %mountpoint% %percentage_free%%
-label-mounted = " %percentage_used%%"
-
-; Available tokens:
-;   %mountpoint%
-; Default: %mountpoint% is not mounted
-label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = #55
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+hook-0 = echo "%{A1:dunstctl set-paused true && polybar-msg hook dunst 2:}%{A}" &
+hook-1 = echo "%{A1:dunstctl set-paused false && polybar-msg hook dunst 1:}%{A}" &
 
 [module/pacman-updates]
 type = custom/script
@@ -162,6 +125,7 @@ click-left = kitty -e $SHELL -c 'sudo pacman -Syu'
 click-right = bspc rule -a \* -o state=floating ; sleep 0.015 ; kitty -e $SHELL -c 'yay -Qu | less'
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/windowtitle]
 type = internal/xwindow
 format = <label>
@@ -173,15 +137,17 @@ label-maxlen = 100
 label-empty = "  "
 label-separator = " "
 label-empty-foreground = ${colors.background}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/volume]
 type = internal/pulseaudio
 format-volume =  "<ramp-volume> <label-volume> "
-ramp-volume-0 =
+ramp-volume-0 = 
 ramp-volume-0-font = 2
-ramp-volume-1 =墳
+ramp-volume-1 = 
 ramp-volume-1-font = 2
-ramp-volume-2 =墳
+ramp-volume-2 = 
 ramp-volume-2-font = 2
 format-volume-background = ${colors.background}
 format-volume-foreground = ${colors.green}
@@ -192,39 +158,9 @@ format-muted-background = ${colors.background}
 format-muted-foreground = ${colors.red}
 label-muted =" 󰝟 "
 format-muted-font = 2
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[module/network]
-type = internal/network
-interface = wlo1
-format-connected = <label-connected>
-format-connected-prefix = " "
-format-connected-prefix-font = 2
-label-connected = " %essid%%downspeed:9% "
-label-connected-font = 1
 
-format-disconnected = <label-disconnected>
-label-disconnected = 
-label-disconnected-font = 2
-
-format-connected-background = ${colors.cyan}
-format-connected-foreground = ${colors.background}
-format-disconnected-background = ${colors.white}
-format-disconnected-foreground = ${colors.background}
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[module/spotify]
-type = custom/script
-interval = 1
-format-prefix ="  "
-format = <label>
-format-background = ${colors.pink}
-format-foreground = ${colors.background}
-format-padding = 4
-
-exec = python3 $HOME/.config/polybar/modules/spotify/spotify_status.py -t 65 -qf '{artist}: {song}'
-format-underline = #1db954
-click-left = bspc desktop -f '^8' --follow
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [module/memory]
 type = internal/memory
 ; Seconds to sleep between updates
@@ -237,41 +173,21 @@ format-prefix-font = 2
 format-prefix-foreground = #ffffff
 format-background = ${colors.background}
 format-foreground = ${colors.blue}
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-[module/wired-network]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-udspeed-minwidth = 5
-
-accumulate-stats = true
-unknown-as-up = true
-
-format-connected = <label-connected>
-format-disconnected = <label-disconnected>
-
-label-connected = " %downspeed%"
-label-connected-foreground = ${colors.pink}
-label-connected-background = ${colors.background}
-
-label-disconnected = ""
-label-disconnected-foreground = ${colors.red}
-label-disconnected-background = ${colors.background}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/cpu]
 type = internal/cpu
 
 interval = 10
 format = <label>
-label = "   %percentage%%  "
+label = "   %percentage%%  "
 
 format-background = ${colors.background}
 format-foreground = ${colors.orange}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/date]
 type = internal/date
 interval = 1
@@ -290,7 +206,9 @@ format-background = ${colors.background}
 format-foreground = ${colors.blue}
 
 label = %date% %time%
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/shutdown]
 type = custom/text
 content = ""
@@ -299,7 +217,9 @@ content-foreground = ${colors.red}
 content-padding = 2
 click-left = $HOME/.config/polybar/scripts/rofi-poweroff.sh
 click-right = $HOME/.config/polybar/scripts/rofi-poweroff.sh
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor

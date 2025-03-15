@@ -27,6 +27,9 @@ ctrl + alt + p
 super + d
 	rofi -modi drun -show drun -width 5
 
+# music player
+super + shift + F4
+    bspc rule -a \* -o desktop=^7 --follow && kitty -e $SHELL -c '~/scripts/pytermusic.sh'
 
 # --------- FUNCTIONALITIES ---------
 
@@ -125,6 +128,10 @@ super + space
 # notifications history
 super + shift + Escape
     dunstctl history-pop
+
+# toggle notifications
+super + shift + n
+    ~/scripts/dunsttoggle.sh
 
 
 # ----------------------- BSPWM HOTKEYS -----------------------
