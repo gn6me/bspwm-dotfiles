@@ -26,7 +26,7 @@ fi
 
 echo " "
 echo "Cloning dotfiles..."
-cp -r bspwm picon sxhkd polybar dunst rofi ~/.config/
+cp -r bspwm picon sxhkd polybar dunst rofi nitrogen ~/.config/
 cp -r scripts ~/scripts
 
 echo "Copying fonts"
