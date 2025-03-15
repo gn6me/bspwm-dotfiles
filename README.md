@@ -25,8 +25,6 @@ The Togalite font is also needed for the Katakana workspace labels. It is includ
 If you want to install everything, run the **fullinstall.sh** script. If you prefer the bare minimum, run the **bareinstall.sh** script.
 
 For a manual install, clone the directory and move the config files you want over to your current config.
-```
-```
-```
-```
-```
+
+***Note:***
+If the install scripts are not working, make sure to run ```chmod +x``` on the script you are trying to run
